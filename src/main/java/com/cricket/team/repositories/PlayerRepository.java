@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PlayerRepository extends JpaRepository<Player, Long> {
+    void deleteByRoleAndTeamName(String role, String teamName);
 }

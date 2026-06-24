@@ -5,6 +5,7 @@ import com.cricket.team.entities.Player;
 import com.cricket.team.repositories.PlayerRepository;
 import com.cricket.team.exceptions.PlayerNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,6 +58,11 @@ public class PlayerService {
         Player player = playerRepository.findById(playerId)
                 .orElseThrow(() -> new PlayerNotFoundException("Player not found with id: " + playerId));
         playerRepository.delete(player);
+    }
+
+    @Transactional
+    public void deletePlayersByRoleAndTeam(String role, String teamName) {
+        playerRepository.deleteByRoleAndTeamName(role, teamName);
     }
 
     // Helper method to convert Entity to DTO
